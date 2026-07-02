@@ -1,13 +1,18 @@
 {
     "name": "misaf/laravel-sms-gateway-sunway",
-    "description": "Sunway driver for misaf/laravel-sms-gateway.",
+    "description": "Sunway SMS gateway driver for Laravel.",
     "type": "library",
     "license": "MIT",
     "keywords": [
         "laravel",
+        "laravel-package",
         "sms",
+        "sms-api",
         "sms-gateway",
-        "sunway"
+        "sms-provider",
+        "sms-driver",
+        "sunway",
+        "sunway-sms"
     ],
     "homepage": "https://github.com/misaf/laravel-sms-gateway-sunway",
     "support": {

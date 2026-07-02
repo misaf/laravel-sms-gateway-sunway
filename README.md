@@ -1,29 +1,48 @@
 # Laravel SMS Gateway Sunway Driver
 
-Sunway driver package for [`misaf/laravel-sms-gateway`](https://github.com/misaf/laravel-sms-gateway).
+Sunway SMS gateway driver for [`misaf/laravel-sms-gateway`](https://github.com/misaf/laravel-sms-gateway).
 
 ## Installation
 
 ```bash
-composer require misaf/laravel-sms-gateway misaf/laravel-sms-gateway-sunway
+composer require misaf/laravel-sms-gateway-sunway
 ```
 
-Laravel package discovery registers `Misaf\LaravelSmsGatewaySunway\SunwaySmsGatewayServiceProvider` automatically.
+Laravel package discovery registers the driver service provider automatically.
 
-## Usage
-
-Set the default driver when this provider should be used by default:
+## Configuration
 
 ```env
 SMS_GATEWAY_DRIVER=sunway
+SMS_GATEWAY_SUNWAY_USERNAME=your-username
+SMS_GATEWAY_SUNWAY_PASSWORD=your-password
 ```
 
-Then configure the provider credentials in `config/services.php` and use the shared facade:
+```php
+// config/services.php
+'sunway' => [
+    'username' => env('SMS_GATEWAY_SUNWAY_USERNAME'),
+    'password' => env('SMS_GATEWAY_SUNWAY_PASSWORD'),
+],
+```
+
+## Usage
 
 ```php
 use Misaf\LaravelSmsGateway\Facade\SmsGateway;
 
-SmsGateway::driver('sunway')->request();
+$response = SmsGateway::driver('sunway')->send([
+    'to'      => '09123456789',
+    'message' => 'Hello',
+]);
+```
+
+The payload is passed directly to Sunway, so use the fields expected by the Sunway API.
+
+Use `request()` when you need direct access to Laravel's HTTP client:
+
+```php
+$request = SmsGateway::driver('sunway')->request();
 ```
 
 ## Testing
