@@ -20,11 +20,11 @@ final class SunwaySmsGatewayServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->afterResolving(SmsGatewayManager::class, function (SmsGatewayManager $manager, Application $app): void {
-            $manager->extend('sunway', fn (): SunwayDriver => $app->make(SunwayDriver::class));
+            $manager->extend('sunway', fn(): SunwayDriver => $app->make(SunwayDriver::class));
         });
 
         if ($this->app->bound('sms-gateway')) {
-            $this->app->make('sms-gateway')->extend('sunway', fn (): SunwayDriver => $this->app->make(SunwayDriver::class));
+            $this->app->make('sms-gateway')->extend('sunway', fn(): SunwayDriver => $this->app->make(SunwayDriver::class));
         }
     }
 }
