@@ -24,7 +24,7 @@ final class SunwaySmsGatewayServiceProvider extends PackageServiceProvider
         });
 
         if ($this->app->bound('sms-gateway')) {
-            $this->app->make('sms-gateway')->extend('sunway', fn(): SunwayDriver => $this->app->make(SunwayDriver::class));
+            $this->app->make('sms-gateway')->extend('sunway', fn(Application $app): SunwayDriver => $app->make(SunwayDriver::class));
         }
     }
 }
