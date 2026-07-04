@@ -23,8 +23,19 @@ SMS_GATEWAY_SUNWAY_PASSWORD=your-password
 'sunway' => [
     'username' => env('SMS_GATEWAY_SUNWAY_USERNAME'),
     'password' => env('SMS_GATEWAY_SUNWAY_PASSWORD'),
+    'base_url' => env('SMS_GATEWAY_SUNWAY_BASE_URL', 'https://sms.sunwaysms.com/smsws/'),
 ],
 ```
+
+## Driver Behavior
+
+| Option | Value |
+| --- | --- |
+| Driver name | `sunway` |
+| Default base URL | `https://sms.sunwaysms.com/smsws/` |
+| `send()` endpoint | `GET HttpService.ashx` |
+| Authentication | `UserName` and `Password` query parameters from `services.sunway.username` and `services.sunway.password` |
+| Payload | Query parameters sent directly to Sunway |
 
 ## Usage
 
@@ -32,8 +43,9 @@ SMS_GATEWAY_SUNWAY_PASSWORD=your-password
 use Misaf\LaravelSmsGateway\Facade\SmsGateway;
 
 $response = SmsGateway::driver('sunway')->send([
-    'to'      => '09123456789',
-    'message' => 'Hello',
+    'method'  => 'SendSMS',
+    'mobile'  => '09123456789',
+    'message' => 'Hello, World!',
 ]);
 ```
 
