@@ -16,13 +16,11 @@ test('sunway driver sends credentials as query parameters', function (): void {
         'https://sms.sunwaysms.com/smsws/HttpService.ashx*' => Http::response(['status' => 'ok'], 200),
     ]);
 
-    $result = SmsGateway::driver()->request()
-        ->get('', [
-            'method'  => 'SendSMS',
-            'mobile'  => '09123456789',
-            'message' => 'Hello, World!',
-        ])
-        ->json();
+    $result = SmsGateway::driver()->send([
+        'method'  => 'SendSMS',
+        'mobile'  => '09123456789',
+        'message' => 'Hello, World!',
+    ])->json();
 
     Http::assertSent(function (Request $request): bool {
         $query = Uri::of($request->url())->query()->all();
@@ -36,4 +34,21 @@ test('sunway driver sends credentials as query parameters', function (): void {
     });
 
     expect($result)->toBe(['status' => 'ok']);
+});
+
+test('prefers the base URL configured in services over the driver default', function (): void {
+    config()->set('sms_gateway.default', 'sunway');
+    config()->set('services.sunway.base_url', 'https://services-override.example.test/smsws/');
+
+    Http::fake([
+        'https://services-override.example.test/*' => Http::response(['status' => 'ok'], 200),
+    ]);
+
+    SmsGateway::driver()->send([
+        'message' => 'Hello',
+    ]);
+
+    Http::assertSent(function (Request $request): bool {
+        return 'https://services-override.example.test/smsws/HttpService.ashx' === strtok($request->url(), '?');
+    });
 });
