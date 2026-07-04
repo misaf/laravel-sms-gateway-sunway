@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-sms-gateway-sunway` will be documented in this file.
 
+## 3.0.0 - 2026-07-04
+
+<!-- Release notes generated using configuration in .github/release.yml at 2402ad90e8f9acaedec3c2fbb0d380453415d73e -->
+
+## What's Changed
+### Changes
+* Prepare Sunway driver for merge by @misaf in https://github.com/misaf/laravel-sms-gateway-sunway/pull/4
+
+
+**Full Changelog**: https://github.com/misaf/laravel-sms-gateway-sunway/compare/v1.0.0...v3.0.0
+
 ## 1.0.0 - 2026-07-03
 
 <!-- Release notes generated using configuration in .github/release.yml at c33f253ad3d204631787e1d056e5cb469d780db6 -->
